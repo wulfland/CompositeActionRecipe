@@ -1,14 +1,10 @@
 name: 'Composite Action Recipe'
-description: 'Greets the user, waites for some milliseconds, writes an awesome job summary, and returns 42.'
+description: 'Greets the user and returns 42.'
 inputs:
   who-to-greet:
     description: 'Who to greet'
     required: true
     default: 'World'
-  seconds:
-    description: 'Wait time before the workflow continues.'
-    required: true
-    default: '10'
 outputs:
   answer:
     description: "Answer to life, the universe, and everything"
@@ -20,16 +16,6 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-            var seconds = core.getInput('seconds')
             var whoToGreet = core.getInput('who-to-greet')
-
-            const wait = async (number) => {
-              await setTimeout(number);
-            };
-
             core.notice('Hello ${whoToGreet}')
-            core.debug(`Waiting ${seconds} seconds ...`)
-            await wait(seconds*1000)
-            core.debug(new Date().toTimeString())
-
             core.setOutput('answer', 42)
