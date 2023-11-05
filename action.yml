@@ -17,5 +17,15 @@ runs:
       with:
         script: |
             var whoToGreet = core.getInput('who-to-greet')
-            core.notice('Hello ${whoToGreet}')
+            core.notice(`Hello ${whoToGreet}`)
             core.setOutput('answer', 42)
+            core.notice(`Worklfow called by event ${context.eventName}`)
+
+            if (context.eventName === 'issues') {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '👋 Thanks for reporting!'
+              })
+            }
