@@ -5,10 +5,10 @@ inputs:
     description: 'Who to greet'
     required: true
     default: 'World'
-  milliseconds:
+  seconds:
     description: 'Wait time before the workflow continues.'
     required: true
-    default: '1000'
+    default: '10'
 outputs:
   answer:
     description: "Answer to life, the universe, and everything"
@@ -22,4 +22,4 @@ runs:
       run: | 
         echo "Hello '${{ inputs.who-to-greet }}'."
         echo "answer=42" >> $GITHUB_OUTPUT
-        sleep ${{ inputs.milliseconds }}
+        sleep ${{ inputs.seconds }}
